@@ -1,0 +1,62 @@
+.colProduct td {
+  text-align: center;
+}
+
+.actionsBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.editBtn,
+.deleteBtn {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.editBtn {
+  background: #6663ed;
+  color: #fff;
+}
+
+.deleteBtn {
+  background: #d92526;
+  color: #fff;
+}
+
+tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tr td {
+  padding: 12px 15px;
+}
+
+tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.colProduct:nth-of-type(odd) {
+  background-color: #fff;
+}
+
+tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.img_box {
+  height: 40px;
+  width: 60px;
+  margin: auto;
+}
+.product__image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

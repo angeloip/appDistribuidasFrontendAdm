@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { Products } from "./pages/Products";
+import { DishProvider } from "./context/dishContext";
+import { Sidebar } from "./components/Sidebar";
+import { Dashboard } from "./pages/Dashboard";
+import { Users } from "./pages/Users";
+import { Analytics } from "./pages/Analytics";
+import { Categories } from "./pages/Categories";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <DishProvider>
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<Products />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/categories" element={<Categories />} />
+        </Routes>
+      </DishProvider>
+    </>
   );
 }
 

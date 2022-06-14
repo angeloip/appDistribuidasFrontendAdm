@@ -1,0 +1,9 @@
+.iconLoading {
+  margin-right: 5px;
+  animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

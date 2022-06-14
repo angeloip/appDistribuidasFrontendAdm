@@ -1,0 +1,114 @@
+.containerForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.formulario {
+  width: 100%;
+  background: #fff;
+  border-radius: 5px; /* padding: 20px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+}
+
+.formulario .btnSubmitForm,
+.formulario .btnForm {
+  display: block;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
+  transition: 0.3s ease all;
+}
+
+.btnSubmitForm,
+.disabledButton {
+  width: 100%;
+  padding: 10px;
+  background: #0085ff;
+}
+
+.formulario .btnSubmitForm:hover {
+  background: #006cd1;
+}
+
+.cont_input {
+  position: relative;
+  margin-bottom: 30px;
+  height: 2rem;
+}
+
+.cont_area {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.cont_file {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.formulario .form__input,
+.formulario .form__input.form__area {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: 2px solid #e2e2e2;
+  padding: 1.25rem;
+  color: #1f1f1f;
+  transition: 0.2s;
+}
+
+.formulario .form__input.form__area {
+  resize: none;
+  padding: 0.75rem 1.25rem;
+}
+
+.formulario .cont_input .my_select {
+  padding: 0 0 0 20px;
+  height: 44px;
+}
+
+.form__input:hover {
+  border-color: #4aa7fd;
+}
+.form__input:focus {
+  border-color: #4aa7fd;
+}
+
+.form__label {
+  position: absolute;
+  left: 1rem;
+  top: 0.71rem;
+  user-select: none;
+  padding: 0 0.5rem;
+  pointer-events: none;
+  color: gray;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+  background-color: #fff;
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+  top: -0.6rem;
+  font-size: 14px;
+  left: 5px;
+  background: #fff;
+  padding: 0 0.5rem;
+}
+
+.formulario .error {
+  margin-left: 10px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  color: #e92b2d;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.formulario .error.error_image {
+  margin-top: -20px;
+}
