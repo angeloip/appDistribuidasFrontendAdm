@@ -4,15 +4,12 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { createCategoryRequest } from "../api/categoryRequest";
 import Spinner from "../components/Spinner";
+import { useData } from "../context/dataContext";
 import styles from "../styles/ModalAgregarPlato.module.css";
 
-export const ModalAddCategory = ({
-  show,
-  setShow,
-  categories,
-  setCategories
-}) => {
+export const ModalAddCategory = ({ show, setShow }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useData().categories;
 
   const agregarCategoria = async (valores) => {
     setIsLoading(true);

@@ -4,16 +4,16 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { updateCategoryRequest } from "../api/categoryRequest";
 import Spinner from "../components/Spinner";
+import { useData } from "../context/dataContext";
 import styles from "../styles/ModalEditarPlato.module.css";
 
 export const ModalUpdateCategory = ({
   show,
   setShow,
-  categoriaSeleccionada,
-  categories,
-  setCategories
+  categoriaSeleccionada
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useData().categories;
 
   const editarCategoria = async (valores) => {
     setIsLoading(true);
@@ -33,7 +33,7 @@ export const ModalUpdateCategory = ({
         setCategories(dataNueva);
 
         Swal.fire(
-          "Plato Actualizado",
+          "Categoría Actualizado",
           "Los datos de la categoría han sido actualizadas",
           "success"
         );

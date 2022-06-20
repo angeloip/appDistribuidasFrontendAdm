@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/* const url = "https://app-distribuida.herokuapp.com/api/categories/"; */
 const url = "http://localhost:5000/api/categories/";
 
 export const getCategoriesRequest = () => axios.get(url);

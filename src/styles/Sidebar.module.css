@@ -148,6 +148,11 @@ ul {
   outline: none;
   border: none;
   border-radius: 6px;
+  padding: 0;
+}
+
+.sidebarContainer.dark .search_box input {
+  color: var(--text-color);
 }
 
 .sidebar li .link {
@@ -184,6 +189,7 @@ ul {
   border: 0;
   outline: none;
   background: none;
+  padding: 0;
 }
 
 .sidebar .menu_bar .mode {

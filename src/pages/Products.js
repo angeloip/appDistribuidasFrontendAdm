@@ -9,11 +9,12 @@ import nophoto from "../nophoto.jpeg";
 import styles from "../styles/Products.module.css";
 import { useDish } from "../context/dishContext";
 import { ProductsTable } from "../components/SkeletonMolds";
+import { useData } from "../context/dataContext";
 
 export const Products = () => {
   const [show, setShow] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useData().data;
+  const [isLoading, setIsLoading] = useData().isLoading;
 
   const [toggle, setToggle] = useDish().toggle;
   const [toggleTemp, setToogleTemp] = useDish().toggleTemp;
@@ -21,25 +22,6 @@ export const Products = () => {
   const classToggle = toggle
     ? `${styles.productsContainer} ${styles.extended}`
     : styles.productsContainer;
-
-  const getData = async () => {
-    setIsLoading(true);
-
-    await getDishesRequest()
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        const error = err.response;
-        alert(error);
-      });
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div className={classToggle}>
@@ -112,12 +94,7 @@ export const Products = () => {
                 data.length > 0 ? (
                   data.map((producto) => {
                     return (
-                      <SingleProduct
-                        key={producto._id}
-                        producto={producto}
-                        data={data}
-                        setData={setData}
-                      />
+                      <SingleProduct key={producto._id} producto={producto} />
                     );
                   })
                 ) : (
@@ -137,12 +114,7 @@ export const Products = () => {
             </tbody>
           </table>
         </div>
-        <ModalAgregarPlato
-          show={show}
-          setShow={setShow}
-          data={data}
-          setData={setData}
-        />
+        <ModalAgregarPlato show={show} setShow={setShow} />
       </div>
     </div>
   );

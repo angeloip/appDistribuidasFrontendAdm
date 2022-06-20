@@ -4,11 +4,24 @@ import { deleteCategoryRequest } from "../api/categoryRequest";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import styles from "../styles/SingleCategory.module.css";
+import { useData } from "../context/dataContext";
 
-export const SingleCategory = ({ category, categories, setCategories }) => {
-  const [isLoading, setIsLoading] = useState(false);
+export const SingleCategory = ({ category }) => {
   const [show, setShow] = useState(false);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
+  const [categories, setCategories] = useData().categories;
+
+  const showLoading = () => {
+    Swal.fire({
+      title: "Espere un momento",
+      html: "Eliminando categoría...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  };
 
   const deleteCategory = async () => {
     Swal.fire({
@@ -17,11 +30,11 @@ export const SingleCategory = ({ category, categories, setCategories }) => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: isLoading ? "Eliminando..." : "Eliminar",
+      confirmButtonText: "Eliminar",
       cancelButtonText: "Cancelar"
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setIsLoading(true);
+        showLoading();
         await deleteCategoryRequest(category._id)
           .then((res) => {
             setCategories(
@@ -38,7 +51,6 @@ export const SingleCategory = ({ category, categories, setCategories }) => {
           .catch((err) => {
             alert(err.response);
           });
-        setIsLoading(false);
       }
     });
   };
@@ -73,8 +85,6 @@ export const SingleCategory = ({ category, categories, setCategories }) => {
         show={show}
         setShow={setShow}
         categoriaSeleccionada={categoriaSeleccionada}
-        categories={categories}
-        setCategories={setCategories}
       />
     </>
   );

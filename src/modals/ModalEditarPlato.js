@@ -4,16 +4,13 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { updateDishRequest } from "../api/dish";
 import Spinner from "../components/Spinner";
+import { useData } from "../context/dataContext";
 import styles from "../styles/ModalEditarPlato.module.css";
 
-export const ModalEditarPlato = ({
-  show,
-  setShow,
-  platoSeleccionado,
-  data,
-  setData
-}) => {
+export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useData().data;
+  const [categories, setCategories] = useData().categories;
 
   const editarPlato = async (valores) => {
     setIsLoading(true);
@@ -191,12 +188,11 @@ export const ModalEditarPlato = ({
                     <option value="Default" disabled>
                       Elija una opción
                     </option>
-                    <option value="Entradas">Entradas</option>
-                    <option value="Sopas">Sopas</option>
-                    <option value="Ensaladas">Ensaladas</option>
-                    <option value="Platos de Fondo">Platos de Fondo</option>
-                    <option value="Postres">Postres</option>
-                    <option value="Bebidas Calientes">Bebidas Calientes</option>
+                    {categories.map((categorie) => (
+                      <option key={categorie._id} value={categorie.name}>
+                        {categorie.name}
+                      </option>
+                    ))}
                   </Field>
                   <label className={styles.form__label} htmlFor="categoria">
                     Categoría

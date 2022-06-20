@@ -4,11 +4,24 @@ import { ModalEditarPlato } from "../modals/ModalEditarPlato";
 import { deleteDishRequest } from "../api/dish";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import { useData } from "../context/dataContext";
 
-export const SingleProduct = ({ producto, data, setData }) => {
-  const [isLoading, setIsLoading] = useState(false);
+export const SingleProduct = ({ producto }) => {
   const [show, setShow] = useState(false);
   const [platoSeleccionado, setPlatoSeleccionado] = useState([]);
+  const [data, setData] = useData().data;
+
+  const showLoading = () => {
+    Swal.fire({
+      title: "Espere un momento",
+      html: "Eliminando plato...",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  };
 
   const deleteProduct = async () => {
     Swal.fire({
@@ -17,11 +30,12 @@ export const SingleProduct = ({ producto, data, setData }) => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: isLoading ? "Eliminando..." : "Eliminar",
-      cancelButtonText: "Cancelar"
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar",
+      allowOutsideClick: false
     }).then(async (result) => {
       if (result.isConfirmed) {
-        setIsLoading(true);
+        showLoading();
         await deleteDishRequest(producto._id)
           .then((res) => {
             setData(
@@ -36,7 +50,6 @@ export const SingleProduct = ({ producto, data, setData }) => {
           .catch((err) => {
             alert(err.response);
           });
-        setIsLoading(false);
       }
     });
   };

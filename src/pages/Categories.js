@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDish } from "../context/dishContext";
 import { ImSpinner9 } from "react-icons/im";
 import nophoto from "../nophoto.jpeg";
 import { FaBars } from "react-icons/fa";
 import { MdAddTask } from "react-icons/md";
 import styles from "../styles/Categories.module.css";
-import { getCategoriesRequest } from "../api/categoryRequest";
 import { SingleCategory } from "../components/SingleCategory";
 import { ModalAddCategory } from "../modals/ModalAddCategory";
 import { CategoriesTable } from "../components/SkeletonMolds";
+import { useData } from "../context/dataContext";
 
 export const Categories = () => {
   const [show, setShow] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
+  const [isLoadingCategory, setIsLoadingCategory] = useData().isLoadingCategory;
+  const [categories, setCategories] = useData().categories;
 
   const [toggle, setToggle] = useDish().toggle;
   const [toggleTemp, setToogleTemp] = useDish().toggleTemp;
@@ -21,25 +21,6 @@ export const Categories = () => {
   const classToggle = toggle
     ? `${styles.categoriesContainer} ${styles.extended}`
     : styles.categoriesContainer;
-
-  const getCategories = async () => {
-    setIsLoading(true);
-
-    await getCategoriesRequest()
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => {
-        const error = err.response;
-        alert(error);
-      });
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
 
   return (
     <div className={classToggle}>
@@ -83,7 +64,7 @@ export const Categories = () => {
 
         <div className={styles.dataQuantity}>
           Número de Categorías:{" "}
-          {isLoading ? (
+          {isLoadingCategory ? (
             <ImSpinner9 className={styles.spinner} />
           ) : (
             <span>{categories.length}</span>
@@ -101,18 +82,13 @@ export const Categories = () => {
               </tr>
             </thead>
             <tbody>
-              {isLoading ? (
+              {isLoadingCategory ? (
                 [...Array(5)].map((x, i) => <CategoriesTable key={i} />)
               ) : categories ? (
                 categories.length > 0 ? (
                   categories.map((category) => {
                     return (
-                      <SingleCategory
-                        key={category._id}
-                        category={category}
-                        categories={categories}
-                        setCategories={setCategories}
-                      />
+                      <SingleCategory key={category._id} category={category} />
                     );
                   })
                 ) : (
@@ -132,12 +108,7 @@ export const Categories = () => {
             </tbody>
           </table>
         </div>
-        <ModalAddCategory
-          show={show}
-          setShow={setShow}
-          categories={categories}
-          setCategories={setCategories}
-        />
+        <ModalAddCategory show={show} setShow={setShow} />
       </div>
     </div>
   );
