@@ -2,27 +2,31 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { createDishRequest } from "../api/dish";
 import Spinner from "../components/Spinner";
+import { useApi } from "../context/apiContext";
 import { useData } from "../context/dataContext";
 import styles from "../styles/ModalAgregarPlato.module.css";
 
 export const ModalAgregarPlato = ({ show, setShow }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useData().data;
-  const [categories, setCategories] = useData().categories;
+  const [categories] = useData().categories;
+  const createDishRequest = useApi().createDishRequest;
 
   const agregarPlato = async (valores) => {
     setIsLoading(true);
     const ingredients = valores.ingredientes.split(", ");
+    const benefits = valores.beneficios.split(", ");
+    const tags = valores.tags.split(", ");
 
     let plato = {
       name: valores.nombre,
       ingredients: ingredients,
       preparation: valores.preparacion,
-      benefits: valores.beneficios,
+      benefits: benefits,
       category: valores.categoria,
-      image: valores.imagen
+      image: valores.imagen,
+      tags: tags
     };
 
     await createDishRequest(plato)
@@ -34,7 +38,10 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
           "success"
         );
       })
-      .catch((err) => alert(err.response));
+      .catch((err) => {
+        alert(err.response);
+        console.log(err.response);
+      });
 
     setIsLoading(false);
     setShow(false);
@@ -53,7 +60,8 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
             preparacion: "",
             beneficios: "",
             categoria: "Default",
-            imagen: ""
+            imagen: "",
+            tags: ""
           }}
           validate={(valores) => {
             let errores = {};
@@ -73,9 +81,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
             if (valores.categoria === "Default") {
               errores.categoria = "Por favor, ingrese la categoria";
             }
-
             if (!valores.imagen || valores.imagen === undefined) {
               errores.imagen = "Por favor, ingrese un archivo";
+            }
+            if (!valores.tags) {
+              errores.tags = "Por favor, ingrese los tags";
             }
 
             return errores;
@@ -108,15 +118,16 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                   )}
                 />
 
-                <div className={styles.cont_input}>
+                <div className={styles.cont_area}>
                   <Field
-                    type="text"
+                    component="textarea"
                     name="ingredientes"
                     id="ingredientes"
                     autoComplete="off"
                     placeholder=" "
-                    className={styles.form__input}
+                    className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="ingredientes">
                     Ingredientes
@@ -138,7 +149,7 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     placeholder=" "
                     className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
-                    rows={3}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="preparacion">
                     Preparación
@@ -160,7 +171,7 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     placeholder=" "
                     className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
-                    rows={3}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="beneficios">
                     Beneficios
@@ -223,6 +234,28 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                   )}
                 />
 
+                <div className={styles.cont_area}>
+                  <Field
+                    component="textarea"
+                    name="tags"
+                    id="tags"
+                    autoComplete="off"
+                    placeholder=" "
+                    className={`${styles.form__input} ${styles.form__area}`}
+                    disabled={isLoading}
+                    rows={2}
+                  />
+                  <label className={styles.form__label} htmlFor="tags">
+                    Tags
+                  </label>
+                </div>
+                <ErrorMessage
+                  name="tags"
+                  component={() => (
+                    <div className={styles.error}>{errors.tags}</div>
+                  )}
+                />
+
                 <button
                   type={isLoading ? "button" : "submit"}
                   className={styles.btnSubmitForm}
@@ -230,7 +263,7 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                 >
                   {isLoading ? (
                     <>
-                      <Spinner size={20} />
+                      <Spinner size={20} color={"#fff"} />
                       Guardando...
                     </>
                   ) : (

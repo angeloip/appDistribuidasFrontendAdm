@@ -7,3 +7,11 @@
     transform: rotate(360deg);
   }
 }
+
+.loadingTableContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}

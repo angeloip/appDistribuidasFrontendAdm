@@ -2,27 +2,31 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { updateDishRequest } from "../api/dish";
 import Spinner from "../components/Spinner";
+import { useApi } from "../context/apiContext";
 import { useData } from "../context/dataContext";
 import styles from "../styles/ModalEditarPlato.module.css";
 
 export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useData().data;
-  const [categories, setCategories] = useData().categories;
+  const [categories] = useData().categories;
+  const updateDishRequest = useApi().updateDishRequest;
 
   const editarPlato = async (valores) => {
     setIsLoading(true);
 
     const ingredients = valores.ingredientes.split(", ");
+    const benefits = valores.beneficios.split(", ");
+    const tags = valores.tags.split(", ");
 
     let newInfo = {
       name: valores.nombre,
       ingredients: ingredients,
       preparation: valores.preparacion,
-      benefits: valores.beneficios,
-      category: valores.categoria
+      benefits: benefits,
+      category: valores.categoria,
+      tags: tags
     };
 
     await updateDishRequest(platoSeleccionado._id, newInfo)
@@ -45,7 +49,10 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
           "success"
         );
       })
-      .catch((err) => alert(err.response));
+      .catch((err) => {
+        alert(err.response);
+        console.log(err.response);
+      });
 
     setIsLoading(false);
     setShow(false);
@@ -62,8 +69,9 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
             nombre: platoSeleccionado.name,
             ingredientes: platoSeleccionado.ingredients?.join(", "),
             preparacion: platoSeleccionado.preparation,
-            beneficios: platoSeleccionado.benefits,
-            categoria: platoSeleccionado.category
+            beneficios: platoSeleccionado.benefits?.join(", "),
+            categoria: platoSeleccionado.category,
+            tags: platoSeleccionado.tags?.join(", ")
           }}
           validate={(valores) => {
             let errores = {};
@@ -82,6 +90,9 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
             }
             if (valores.categoria === "Default") {
               errores.categoria = "Por favor, ingrese la categoria";
+            }
+            if (!valores.tags) {
+              errores.tags = "Por favor, ingrese los tags";
             }
 
             return errores;
@@ -114,15 +125,16 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                   )}
                 />
 
-                <div className={styles.cont_input}>
+                <div className={styles.cont_area}>
                   <Field
-                    type="text"
+                    component="textarea"
                     name="ingredientes"
                     id="ingredientes"
                     autoComplete="off"
                     placeholder=" "
-                    className={styles.form__input}
+                    className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="ingredientes">
                     Ingredientes
@@ -144,7 +156,7 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     placeholder=" "
                     className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
-                    rows={3}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="preparacion">
                     Preparación
@@ -166,7 +178,7 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     placeholder=" "
                     className={`${styles.form__input} ${styles.form__area}`}
                     disabled={isLoading}
-                    rows={3}
+                    rows={4}
                   />
                   <label className={styles.form__label} htmlFor="beneficios">
                     Beneficios
@@ -205,6 +217,28 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                   )}
                 />
 
+                <div className={styles.cont_area}>
+                  <Field
+                    component="textarea"
+                    name="tags"
+                    id="tags"
+                    autoComplete="off"
+                    placeholder=" "
+                    className={`${styles.form__input} ${styles.form__area}`}
+                    disabled={isLoading}
+                    rows={2}
+                  />
+                  <label className={styles.form__label} htmlFor="tags">
+                    Tags
+                  </label>
+                </div>
+                <ErrorMessage
+                  name="tags"
+                  component={() => (
+                    <div className={styles.error}>{errors.tags}</div>
+                  )}
+                />
+
                 <button
                   type={isLoading ? "button" : "submit"}
                   className={styles.btnSubmitForm}
@@ -212,7 +246,7 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                 >
                   {isLoading ? (
                     <>
-                      <Spinner size={20} />
+                      <Spinner size={20} color={"#fff"} />
                       Editando...
                     </>
                   ) : (

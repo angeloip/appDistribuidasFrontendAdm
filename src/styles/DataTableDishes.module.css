@@ -1,0 +1,71 @@
+/* .tableContainer table {
+  border-collapse: collapse;
+
+  font-size: 0.9rem;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  width: 100%;
+} */
+
+/* .tableContainer table thead tr {
+  background-color: #009879 !important;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+ */
+/* .tableContainer table tr th {
+    padding: 12px 15px;
+  }
+   */
+.tableContainer p {
+  margin: 0;
+}
+
+/* .tableContainer table thead tr {
+  background-color: #009879 !important;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+ */
+.img_box {
+  height: 40px;
+  width: 60px;
+  margin: auto;
+}
+.product__image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.actionsBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+}
+
+.editBtn,
+.deleteBtn {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.editBtn {
+  background: #6663ed;
+  color: #fff;
+}
+
+.deleteBtn {
+  background: #d92526;
+  color: #fff;
+}

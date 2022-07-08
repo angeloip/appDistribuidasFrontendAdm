@@ -1,0 +1,29 @@
+.tableContainer p {
+  margin: 0;
+}
+.actionsBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.editBtn,
+.deleteBtn {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.editBtn {
+  background: #6663ed;
+  color: #fff;
+}
+
+.deleteBtn {
+  background: #d92526;
+  color: #fff;
+}

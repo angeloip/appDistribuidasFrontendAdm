@@ -2,14 +2,15 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { createCategoryRequest } from "../api/categoryRequest";
 import Spinner from "../components/Spinner";
+import { useApi } from "../context/apiContext";
 import { useData } from "../context/dataContext";
 import styles from "../styles/ModalAgregarPlato.module.css";
 
 export const ModalAddCategory = ({ show, setShow }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useData().categories;
+  const createCategoryRequest = useApi().createCategoryRequest;
 
   const agregarCategoria = async (valores) => {
     setIsLoading(true);
@@ -87,7 +88,7 @@ export const ModalAddCategory = ({ show, setShow }) => {
                 >
                   {isLoading ? (
                     <>
-                      <Spinner size={20} />
+                      <Spinner size={20} color={"#fff"} />
                       Guardando...
                     </>
                   ) : (

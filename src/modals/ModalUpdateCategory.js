@@ -2,8 +2,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { updateCategoryRequest } from "../api/categoryRequest";
 import Spinner from "../components/Spinner";
+import { useApi } from "../context/apiContext";
 import { useData } from "../context/dataContext";
 import styles from "../styles/ModalEditarPlato.module.css";
 
@@ -14,6 +14,7 @@ export const ModalUpdateCategory = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useData().categories;
+  const updateCategoryRequest = useApi().updateCategoryRequest;
 
   const editarCategoria = async (valores) => {
     setIsLoading(true);
@@ -98,7 +99,7 @@ export const ModalUpdateCategory = ({
                 >
                   {isLoading ? (
                     <>
-                      <Spinner size={20} />
+                      <Spinner size={20} color={"#fff"} />
                       Editando...
                     </>
                   ) : (

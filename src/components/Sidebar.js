@@ -8,6 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDish } from "../context/dishContext";
+import logoIcon from "../img/logoIcon.png";
 /* import { useAuth } from "../../context/AuthContext"; */
 
 export const Sidebar = () => {
@@ -49,7 +50,7 @@ export const Sidebar = () => {
         <header>
           <div className={styles.image_text}>
             <span className={styles.image}>
-              <img src={nophoto} alt="" />
+              <img src={logoIcon} alt="" />
             </span>
 
             <div className={`${styles.text} ${styles.logo_text}`}>

@@ -7,22 +7,25 @@ import { Users } from "./pages/Users";
 import { Analytics } from "./pages/Analytics";
 import { Categories } from "./pages/Categories";
 import { DataProvider } from "./context/dataContext";
+import { ApiProvider } from "./context/apiContext";
 
 function App() {
   return (
     <>
-      <DataProvider>
-        <DishProvider>
-          <Sidebar />
-          <Routes>
-            <Route path="/" element={<Products />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/categories" element={<Categories />} />
-          </Routes>
-        </DishProvider>
-      </DataProvider>
+      <ApiProvider>
+        <DataProvider>
+          <DishProvider>
+            <Sidebar />
+            <Routes>
+              <Route path="/" element={<Products />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/categories" element={<Categories />} />
+            </Routes>
+          </DishProvider>
+        </DataProvider>
+      </ApiProvider>
     </>
   );
 }
