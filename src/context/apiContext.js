@@ -33,6 +33,22 @@ export const ApiProvider = ({ children }) => {
     });
   };
 
+  const loadDishesWithExcel = (xlsx) => {
+    const form = new FormData();
+
+    for (let key in xlsx) {
+      form.append(key, xlsx[key]);
+    }
+
+    return axios.post(urlDish + "xlsx", form, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+  };
+
+  const exportExcelOfDishes = () => axios.post(urlDish + "exportxlsx", {});
+
   const updateDishRequest = (id, newInfoDish) =>
     axios.put(urlDish + id, newInfoDish);
 
@@ -55,6 +71,8 @@ export const ApiProvider = ({ children }) => {
     getDishRequest: getDishRequest,
     deleteDishRequest: deleteDishRequest,
     createDishRequest: createDishRequest,
+    loadDishesWithExcel: loadDishesWithExcel,
+    exportExcelOfDishes: exportExcelOfDishes,
     updateDishRequest: updateDishRequest,
     getCategoriesRequest: getCategoriesRequest,
     getCategoryRequest: getCategoryRequest,

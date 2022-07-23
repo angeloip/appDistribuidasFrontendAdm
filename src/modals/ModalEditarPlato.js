@@ -101,29 +101,56 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
             editarPlato(valores);
           }}
         >
-          {({ errors }) => (
+          {({ errors, touched }) => (
             <div className={`container ${styles.containerForm}`}>
               <Form action="" className={styles.formulario}>
-                <div className={styles.cont_input}>
-                  <Field
-                    type="text"
-                    name="nombre"
-                    id="nombre"
-                    autoComplete="off"
-                    placeholder=" "
-                    className={styles.form__input}
-                    disabled={isLoading}
-                  />
-                  <label className={styles.form__label} htmlFor="nombre">
-                    Nombre
-                  </label>
+                <div className={styles.input_divider}>
+                  <div className={styles.input_element}>
+                    <div className={styles.cont_input}>
+                      <Field
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        autoComplete="off"
+                        placeholder=" "
+                        className={
+                          errors.nombre && touched.nombre
+                            ? `${styles.form__input} ${styles.warning}`
+                            : `${styles.form__input}`
+                        }
+                        disabled={isLoading}
+                      />
+                      <label className={styles.form__label} htmlFor="nombre">
+                        Nombre
+                      </label>
+                    </div>
+                  </div>
+                  <div className={styles.input_element}>
+                    <div className={styles.cont_input}>
+                      <Field
+                        name="categoria"
+                        as="select"
+                        className={
+                          errors.categoria && touched.categoria
+                            ? `${styles.form__input} ${styles.my_select} ${styles.warning}`
+                            : `${styles.form__input} ${styles.my_select}`
+                        }
+                      >
+                        <option value="Default" disabled>
+                          Elija una opción
+                        </option>
+                        {categories.map((categorie) => (
+                          <option key={categorie._id} value={categorie.name}>
+                            {categorie.name}
+                          </option>
+                        ))}
+                      </Field>
+                      <label className={styles.form__label} htmlFor="categoria">
+                        Categoría
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <ErrorMessage
-                  name="nombre"
-                  component={() => (
-                    <div className={styles.error}>{errors.nombre}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -132,7 +159,11 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     id="ingredientes"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.ingredientes && touched.ingredientes
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -140,12 +171,6 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     Ingredientes
                   </label>
                 </div>
-                <ErrorMessage
-                  name="ingredientes"
-                  component={() => (
-                    <div className={styles.error}>{errors.ingredientes}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -154,7 +179,11 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     id="preparacion"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.preparacion && touched.preparacion
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -162,12 +191,6 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     Preparación
                   </label>
                 </div>
-                <ErrorMessage
-                  name="preparacion"
-                  component={() => (
-                    <div className={styles.error}>{errors.preparacion}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -176,7 +199,11 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     id="beneficios"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.beneficios && touched.beneficios
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -184,38 +211,6 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     Beneficios
                   </label>
                 </div>
-                <ErrorMessage
-                  name="beneficios"
-                  component={() => (
-                    <div className={styles.error}>{errors.beneficios}</div>
-                  )}
-                />
-
-                <div className={styles.cont_input}>
-                  <Field
-                    name="categoria"
-                    as="select"
-                    className={`${styles.form__input} ${styles.my_select}`}
-                  >
-                    <option value="Default" disabled>
-                      Elija una opción
-                    </option>
-                    {categories.map((categorie) => (
-                      <option key={categorie._id} value={categorie.name}>
-                        {categorie.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <label className={styles.form__label} htmlFor="categoria">
-                    Categoría
-                  </label>
-                </div>
-                <ErrorMessage
-                  name="categoria"
-                  component={() => (
-                    <div className={styles.error}>{errors.categoria}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -224,7 +219,11 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     id="tags"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.tags && touched.tags
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={2}
                   />
@@ -232,12 +231,6 @@ export const ModalEditarPlato = ({ show, setShow, platoSeleccionado }) => {
                     Tags
                   </label>
                 </div>
-                <ErrorMessage
-                  name="tags"
-                  component={() => (
-                    <div className={styles.error}>{errors.tags}</div>
-                  )}
-                />
 
                 <button
                   type={isLoading ? "button" : "submit"}

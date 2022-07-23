@@ -12,6 +12,16 @@
   border-radius: 5px; /* padding: 20px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
 }
 
+.input_divider {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.input_element {
+  width: 100%;
+}
+
 .formulario .btnSubmitForm,
 .formulario .btnForm {
   display: block;
@@ -72,11 +82,18 @@
   height: 44px;
 }
 
-.form__input:hover {
+.form__input:hover,
+.form__input.form__area:hover {
   border-color: #4aa7fd;
 }
 .form__input:focus {
   border-color: #4aa7fd;
+}
+
+.form__input.warning,
+.form__input.form__area.warning,
+.form__input.my_select.warning {
+  border-color: #f74562;
 }
 
 .form__label {

@@ -11,18 +11,8 @@
   background: #fff;
   border-radius: 5px; /* padding: 20px; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
 }
-.input_divider {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
 
-.input_element {
-  width: 100%;
-}
-
-.formulario .btnSubmitForm,
-.formulario .btnForm {
+.formulario .btnSubmitForm {
   display: block;
   font-weight: 500;
   border: none;
@@ -43,15 +33,9 @@
   background: #006cd1;
 }
 
-.cont_input {
+.cont_file {
   position: relative;
   margin-bottom: 30px;
-  height: 2rem;
-}
-
-.cont_area {
-  position: relative;
-  margin-bottom: 10px;
 }
 
 .formulario .form__input,
@@ -71,23 +55,11 @@
   padding: 0.75rem 1.25rem;
 }
 
-.formulario .cont_input .my_select {
-  padding: 0 0 0 20px;
-  height: 44px;
-}
-
-.form__input:hover,
-.form__input.form__area:hover {
+.form__input:hover {
   border-color: #4aa7fd;
 }
 .form__input:focus {
   border-color: #4aa7fd;
-}
-
-.form__input.warning,
-.form__input.form__area.warning,
-.form__input.my_select.warning {
-  border-color: #f74562;
 }
 
 .form__label {
@@ -114,8 +86,12 @@
 .formulario .error {
   margin-left: 10px;
   margin-top: -10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   color: #e92b2d;
   font-weight: 500;
   font-size: 12px;
+}
+
+.formulario .error.error_image {
+  margin-top: -20px;
 }

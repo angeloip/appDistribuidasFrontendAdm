@@ -69,6 +69,7 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
             if (!valores.nombre) {
               errores.nombre = "Por favor, ingrese un nombre";
             }
+
             if (!valores.ingredientes) {
               errores.ingredientes = "Por favor, ingrese los ingredientes";
             }
@@ -82,7 +83,7 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
               errores.categoria = "Por favor, ingrese la categoria";
             }
             if (!valores.imagen || valores.imagen === undefined) {
-              errores.imagen = "Por favor, ingrese un archivo";
+              errores.imagen = "Por favor, ingrese una imagen";
             }
             if (!valores.tags) {
               errores.tags = "Por favor, ingrese los tags";
@@ -94,29 +95,57 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
             agregarPlato(valores);
           }}
         >
-          {({ errors, setFieldValue }) => (
+          {({ errors, touched, setFieldValue }) => (
             <div className={`container ${styles.containerForm}`}>
               <Form action="" className={styles.formulario}>
-                <div className={styles.cont_input}>
-                  <Field
-                    type="text"
-                    name="nombre"
-                    id="nombre"
-                    autoComplete="off"
-                    placeholder=" "
-                    className={styles.form__input}
-                    disabled={isLoading}
-                  />
-                  <label className={styles.form__label} htmlFor="nombre">
-                    Nombre
-                  </label>
+                <div className={styles.input_divider}>
+                  <div className={styles.input_element}>
+                    <div className={styles.cont_input}>
+                      <Field
+                        type="text"
+                        name="nombre"
+                        id="nombre"
+                        autoComplete="off"
+                        placeholder=" "
+                        className={
+                          errors.nombre && touched.nombre
+                            ? `${styles.form__input} ${styles.warning}`
+                            : `${styles.form__input}`
+                        }
+                        disabled={isLoading}
+                      />
+                      <label className={styles.form__label} htmlFor="nombre">
+                        Nombre
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className={styles.input_element}>
+                    <div className={styles.cont_input}>
+                      <Field
+                        name="categoria"
+                        as="select"
+                        className={
+                          errors.categoria && touched.categoria
+                            ? `${styles.form__input} ${styles.my_select} ${styles.warning}`
+                            : `${styles.form__input} ${styles.my_select}`
+                        }
+                      >
+                        <option value="Default" disabled>
+                          Elija una opción
+                        </option>
+                        {categories.map((categorie) => (
+                          <option key={categorie._id} value={categorie.name}>
+                            {categorie.name}
+                          </option>
+                        ))}
+                      </Field>
+                      <label className={styles.form__label} htmlFor="categoria">
+                        Categoría
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <ErrorMessage
-                  name="nombre"
-                  component={() => (
-                    <div className={styles.error}>{errors.nombre}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -125,7 +154,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     id="ingredientes"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.ingredientes && touched.ingredientes
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -133,12 +166,6 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     Ingredientes
                   </label>
                 </div>
-                <ErrorMessage
-                  name="ingredientes"
-                  component={() => (
-                    <div className={styles.error}>{errors.ingredientes}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -147,7 +174,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     id="preparacion"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.preparacion && touched.preparacion
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -155,12 +186,6 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     Preparación
                   </label>
                 </div>
-                <ErrorMessage
-                  name="preparacion"
-                  component={() => (
-                    <div className={styles.error}>{errors.preparacion}</div>
-                  )}
-                />
 
                 <div className={styles.cont_area}>
                   <Field
@@ -169,7 +194,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     id="beneficios"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.beneficios && touched.beneficios
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={4}
                   />
@@ -177,38 +206,6 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     Beneficios
                   </label>
                 </div>
-                <ErrorMessage
-                  name="beneficios"
-                  component={() => (
-                    <div className={styles.error}>{errors.beneficios}</div>
-                  )}
-                />
-
-                <div className={styles.cont_input}>
-                  <Field
-                    name="categoria"
-                    as="select"
-                    className={`${styles.form__input} ${styles.my_select}`}
-                  >
-                    <option value="Default" disabled>
-                      Elija una opción
-                    </option>
-                    {categories.map((categorie) => (
-                      <option key={categorie._id} value={categorie.name}>
-                        {categorie.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <label className={styles.form__label} htmlFor="categoria">
-                    Categoría
-                  </label>
-                </div>
-                <ErrorMessage
-                  name="categoria"
-                  component={() => (
-                    <div className={styles.error}>{errors.categoria}</div>
-                  )}
-                />
 
                 <div className={styles.cont_file}>
                   <input
@@ -216,7 +213,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     name="imagen"
                     id="imagen"
                     accept="image/*"
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.imagen && touched.imagen
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     onChange={(e) =>
                       setFieldValue("imagen", e.currentTarget.files[0])
                     }
@@ -225,14 +226,14 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     Imagen
                   </label>
                 </div>
-                <ErrorMessage
+                {/*  <ErrorMessage
                   name="imagen"
                   component={() => (
                     <div className={`${styles.error} ${styles.error_image}`}>
                       {errors.imagen}
                     </div>
                   )}
-                />
+                /> */}
 
                 <div className={styles.cont_area}>
                   <Field
@@ -241,7 +242,11 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     id="tags"
                     autoComplete="off"
                     placeholder=" "
-                    className={`${styles.form__input} ${styles.form__area}`}
+                    className={
+                      errors.tags && touched.tags
+                        ? `${styles.form__input} ${styles.form__area} ${styles.warning}`
+                        : `${styles.form__input} ${styles.form__area}`
+                    }
                     disabled={isLoading}
                     rows={2}
                   />
@@ -249,12 +254,6 @@ export const ModalAgregarPlato = ({ show, setShow }) => {
                     Tags
                   </label>
                 </div>
-                <ErrorMessage
-                  name="tags"
-                  component={() => (
-                    <div className={styles.error}>{errors.tags}</div>
-                  )}
-                />
 
                 <button
                   type={isLoading ? "button" : "submit"}
