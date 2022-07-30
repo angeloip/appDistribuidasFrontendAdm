@@ -3,6 +3,7 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { IconButton, Tooltip } from "@mui/material";
 import { LoadingTable } from "../components/LoadingTable";
 import { useApi } from "./apiContext";
+import { MyCustomToolbarSelect } from "../components/MyCustomToolbarSelect";
 
 const dataContext = createContext();
 
@@ -21,8 +22,8 @@ export const DataProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const options = {
     /*   selectableRows: "none", */
-    rowsPerPage: 5,
-    rowsPerPageOptions: [5, 10, 25],
+    rowsPerPage: 10,
+    rowsPerPageOptions: [10, 25, 50],
     responsive: "standard",
     customToolbar: () => {
       return (
@@ -78,6 +79,19 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const moreOptions = {
+    /* onRowSelectionChange: (currentSelect, allSelected) => {
+      const result = allSelected.map((item) => data.at(item.index));
+      const selectedIds = result.map((item) => item._id);
+    }, */
+    customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
+      <MyCustomToolbarSelect
+        selectedRows={selectedRows.data}
+        displayData={displayData}
+        setSelectedRows={setSelectedRows}
+      />
+    )
+  };
   const getData = async () => {
     setIsLoading(true);
 
@@ -87,7 +101,7 @@ export const DataProvider = ({ children }) => {
       })
       .catch((err) => {
         const error = err.response;
-        alert(error);
+        console.log(error);
       });
 
     setIsLoading(false);
@@ -106,7 +120,7 @@ export const DataProvider = ({ children }) => {
       })
       .catch((err) => {
         const error = err.response;
-        alert(error);
+        console.log(error);
       });
 
     setIsLoadingCategory(false);
@@ -118,6 +132,7 @@ export const DataProvider = ({ children }) => {
 
   const value = {
     options: options,
+    moreOptions: moreOptions,
     data: [data, setData],
     categories: [categories, setCategories],
     isLoading: [isLoading, setIsLoading],

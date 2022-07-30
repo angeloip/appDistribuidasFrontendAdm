@@ -1,5 +1,4 @@
 import styles from "../styles/Sidebar.module.css";
-import nophoto from "../nophoto.jpeg";
 import { BiChevronRight, BiLogOut, BiSun, BiMoon } from "react-icons/bi";
 import { RiDashboardLine, RiUser3Line } from "react-icons/ri";
 import { BsBoxSeam, BsBarChartLine } from "react-icons/bs";

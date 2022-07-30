@@ -4,27 +4,29 @@ import { Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import Spinner from "../components/Spinner";
 import { useApi } from "../context/apiContext";
+import { useData } from "../context/dataContext";
 import styles from "../styles/ModalImportExcelDishes.module.css";
 
 export const ModalImportExcelDishes = ({ show, setShow }) => {
   const [isLoading, setIsLoading] = useState(false);
   const loadDishesWithExcel = useApi().loadDishesWithExcel;
+  const [data, setData] = useData().data;
 
   const importExcel = async (xlsx) => {
     setIsLoading(true);
 
-    const data = {
+    const dataExcel = {
       xlsx: xlsx
     };
 
-    await loadDishesWithExcel(data)
+    await loadDishesWithExcel(dataExcel)
       .then((res) => {
+        setData([...data, ...res.data.import]);
         Swal.fire(
           "Data importada",
           `Se encontró un total de ${res.data.length} registros`,
           "success"
         );
-        console.log(res);
       })
       .catch((err) => {
         alert(err.response);

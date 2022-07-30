@@ -11,6 +11,7 @@ export const useApi = () => {
 
 export const ApiProvider = ({ children }) => {
   const url = "http://localhost:5000/api/";
+  /* const url = "https://app-distribuida.herokuapp.com/api/"; */
   const urlDish = url + "products/";
 
   const getDishesRequest = () => axios.get(urlDish);
@@ -18,6 +19,9 @@ export const ApiProvider = ({ children }) => {
   const getDishRequest = (id) => axios.get(urlDish + id);
 
   const deleteDishRequest = (id) => axios.delete(urlDish + id);
+
+  const deleteManyDishesRequest = (ids) =>
+    axios.post(urlDish + "deletemanyproducts", ids);
 
   const createDishRequest = (dish) => {
     const form = new FormData();
@@ -70,6 +74,7 @@ export const ApiProvider = ({ children }) => {
     getDishesRequest: getDishesRequest,
     getDishRequest: getDishRequest,
     deleteDishRequest: deleteDishRequest,
+    deleteManyDishesRequest: deleteManyDishesRequest,
     createDishRequest: createDishRequest,
     loadDishesWithExcel: loadDishesWithExcel,
     exportExcelOfDishes: exportExcelOfDishes,

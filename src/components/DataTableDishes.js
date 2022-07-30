@@ -7,13 +7,16 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useApi } from "../context/apiContext";
+import noImg from "../img/no-image-dish.jpg";
 
 export const DataTableDishes = () => {
   const [data, setData] = useData().data;
   const options = useData().options;
+  const moreOptions = useData().moreOptions;
   const [show, setShow] = useState(false);
   const [platoSeleccionado, setPlatoSeleccionado] = useState([]);
   const deleteDishRequest = useApi().deleteDishRequest;
+  const allOptions = { ...options, ...moreOptions };
 
   const updateDish = (id) => {
     const dish = data.find((dish) => dish._id === id);
@@ -137,7 +140,7 @@ export const DataTableDishes = () => {
           return (
             <div className={styles.img_box}>
               <img
-                src={value.url}
+                src={value.url || noImg}
                 className={styles.product__image}
                 alt={tableMeta.rowData[1]}
               />
@@ -213,7 +216,7 @@ export const DataTableDishes = () => {
           title={"Lista de Platos"}
           data={data}
           columns={columns}
-          options={options}
+          options={allOptions}
         />
       </ThemeProvider>
 
