@@ -129,3 +129,27 @@
 .formulario .error.error_image {
   margin-top: -20px;
 }
+
+/** EDIT IMAGE **/
+
+.topModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.figure {
+  max-width: 300px;
+}
+
+.figure img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 11px 12px 20px -7px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: 11px 12px 20px -7px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 11px 12px 20px -7px rgba(0, 0, 0, 0.35);
+}

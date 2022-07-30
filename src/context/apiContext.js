@@ -54,6 +54,20 @@ export const ApiProvider = ({ children }) => {
   const updateDishRequest = (id, newInfoDish) =>
     axios.put(urlDish + id, newInfoDish);
 
+  const updateImageRequest = (id, newImage) => {
+    const form = new FormData();
+
+    for (let key in newImage) {
+      form.append(key, newImage[key]);
+    }
+
+    return axios.put(urlDish + "image/" + id, form, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    });
+  };
+
   const urlCategory = url + "categories/";
 
   const getCategoriesRequest = () => axios.get(urlCategory);
@@ -76,6 +90,7 @@ export const ApiProvider = ({ children }) => {
     createDishRequest: createDishRequest,
     loadDishesWithExcel: loadDishesWithExcel,
     updateDishRequest: updateDishRequest,
+    updateImageRequest: updateImageRequest,
     getCategoriesRequest: getCategoriesRequest,
     getCategoryRequest: getCategoryRequest,
     deleteCategoryRequest: deleteCategoryRequest,

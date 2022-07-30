@@ -50,7 +50,8 @@
 }
 
 .editBtn,
-.deleteBtn {
+.deleteBtn,
+.viewBtn {
   border: none;
   outline: none;
   padding: 8px 10px;
@@ -67,5 +68,10 @@
 
 .deleteBtn {
   background: #d92526;
+  color: #fff;
+}
+
+.viewBtn {
+  background: rgb(19, 145, 19);
   color: #fff;
 }

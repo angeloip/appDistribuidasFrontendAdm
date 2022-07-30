@@ -36,10 +36,24 @@ export const Products = () => {
       };
     });
 
+    const wscols = raea(dataExport);
+
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet(dataExport);
+    ws["!cols"] = wscols;
+
     XLSX.utils.book_append_sheet(wb, ws, "Platos");
     XLSX.writeFile(wb, "DataDePlatos.xlsx");
+  };
+
+  const raea = (rows) => {
+    return Object.keys(rows[0]).map((data, i) => ({
+      wch: rows.reduce(
+        (previousValue, currentValue) =>
+          Math.max(previousValue, Object.values(currentValue)[i].length),
+        10
+      )
+    }));
   };
 
   return (

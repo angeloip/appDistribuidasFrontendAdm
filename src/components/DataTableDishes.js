@@ -1,6 +1,6 @@
 import MUIDataTable from "mui-datatables";
 import { useData } from "../context/dataContext";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaRegImage, FaTrash } from "react-icons/fa";
 import styles from "../styles/DataTableDishes.module.css";
 import { ModalEditarPlato } from "../modals/ModalEditarPlato";
 import { useState } from "react";
@@ -8,12 +8,14 @@ import Swal from "sweetalert2";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useApi } from "../context/apiContext";
 import noImg from "../img/no-image-dish.jpg";
+import { ModalEditImageDish } from "../modals/ModalEditImageDish";
 
 export const DataTableDishes = () => {
   const [data, setData] = useData().data;
   const options = useData().options;
   const moreOptions = useData().moreOptions;
   const [show, setShow] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const [platoSeleccionado, setPlatoSeleccionado] = useState([]);
   const deleteDishRequest = useApi().deleteDishRequest;
   const allOptions = { ...options, ...moreOptions };
@@ -22,6 +24,12 @@ export const DataTableDishes = () => {
     const dish = data.find((dish) => dish._id === id);
     setPlatoSeleccionado(dish);
     setShow(true);
+  };
+
+  const updateImage = (id) => {
+    const dish = data.find((dish) => dish._id === id);
+    setPlatoSeleccionado(dish);
+    setShowImage(true);
   };
 
   const showLoading = () => {
@@ -165,6 +173,13 @@ export const DataTableDishes = () => {
               </button>
               <button
                 type="button"
+                className={styles.viewBtn}
+                onClick={() => updateImage(tableMeta.rowData[0])}
+              >
+                <FaRegImage size={18} />
+              </button>
+              <button
+                type="button"
                 className={styles.deleteBtn}
                 onClick={() => deleteDish(tableMeta.rowData[0])}
               >
@@ -223,6 +238,11 @@ export const DataTableDishes = () => {
       <ModalEditarPlato
         show={show}
         setShow={setShow}
+        platoSeleccionado={platoSeleccionado}
+      />
+      <ModalEditImageDish
+        show={showImage}
+        setShow={setShowImage}
         platoSeleccionado={platoSeleccionado}
       />
     </div>
