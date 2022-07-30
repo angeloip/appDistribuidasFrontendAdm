@@ -51,8 +51,6 @@ export const ApiProvider = ({ children }) => {
     });
   };
 
-  const exportExcelOfDishes = () => axios.post(urlDish + "exportxlsx", {});
-
   const updateDishRequest = (id, newInfoDish) =>
     axios.put(urlDish + id, newInfoDish);
 
@@ -77,7 +75,6 @@ export const ApiProvider = ({ children }) => {
     deleteManyDishesRequest: deleteManyDishesRequest,
     createDishRequest: createDishRequest,
     loadDishesWithExcel: loadDishesWithExcel,
-    exportExcelOfDishes: exportExcelOfDishes,
     updateDishRequest: updateDishRequest,
     getCategoriesRequest: getCategoriesRequest,
     getCategoryRequest: getCategoryRequest,

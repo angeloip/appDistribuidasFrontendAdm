@@ -9,7 +9,7 @@ import { useData } from "../context/dataContext";
 import { Header } from "../components/Header";
 import { DataTableDishes } from "../components/DataTableDishes";
 import { ModalImportExcelDishes } from "../modals/ModalImportExcelDishes";
-import { useApi } from "../context/apiContext";
+import * as XLSX from "xlsx";
 import Spinner from "../components/Spinner";
 
 export const Products = () => {
@@ -19,22 +19,27 @@ export const Products = () => {
   const [toggle] = useDish().toggle;
   const [data] = useData().data;
   const [loading, setLoading] = useState(false);
-  const exportExcelOfDishes = useApi().exportExcelOfDishes;
 
   const classToggle = toggle
     ? `${styles.productsContainer} ${styles.extended}`
     : styles.productsContainer;
 
-  const exportExcel = async () => {
-    setLoading(true);
+  const exportExcel = () => {
+    const dataExport = data.map((dish) => {
+      return {
+        name: dish.name,
+        ingredients: dish.ingredients.join(", "),
+        preparation: dish.preparation,
+        benefits: dish.benefits.join(", "),
+        category: dish.category,
+        tags: dish.tags.join(", ")
+      };
+    });
 
-    await exportExcelOfDishes()
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err.response.data));
-
-    setLoading(false);
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(dataExport);
+    XLSX.utils.book_append_sheet(wb, ws, "Platos");
+    XLSX.writeFile(wb, "DataDePlatos.xlsx");
   };
 
   return (
@@ -55,7 +60,11 @@ export const Products = () => {
           <button className={styles.addBtn} onClick={() => setShowImport(true)}>
             <RiFileExcel2Line size={18} /> Importar Excel
           </button>
-          <button className={styles.addBtn} onClick={() => exportExcel()}>
+          <button
+            className={styles.addBtn}
+            disabled={loading}
+            onClick={() => exportExcel()}
+          >
             {loading ? (
               <>
                 <Spinner size={20} color={"#fff"} />

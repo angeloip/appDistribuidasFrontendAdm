@@ -140,7 +140,7 @@ export const DataTableDishes = () => {
           return (
             <div className={styles.img_box}>
               <img
-                src={value.url || noImg}
+                src={value?.url || noImg}
                 className={styles.product__image}
                 alt={tableMeta.rowData[1]}
               />
