@@ -2,10 +2,12 @@ import { useDish } from "../context/dishContext";
 import styles from "../styles/Header.module.css";
 import nophoto from "../nophoto.jpeg";
 import { FaBars } from "react-icons/fa";
+import { useAuth } from "../context/authContext";
 
 export const Header = ({ children }) => {
-  const [toggle, setToggle] = useDish().toggle;
+  const setToggle = useDish().toggle[1];
   const [toggleTemp, setToogleTemp] = useDish().toggleTemp;
+  const [beUser] = useAuth().beUser;
 
   return (
     <header className={styles.headerProducts}>
@@ -25,7 +27,7 @@ export const Header = ({ children }) => {
         </div>
 
         <div>
-          <span>Admin</span>
+          <span>{beUser.name || beUser.email}</span>
           <img src={nophoto} alt="" />
         </div>
       </div>

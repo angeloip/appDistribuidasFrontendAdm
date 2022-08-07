@@ -25,7 +25,7 @@ export const DataProvider = ({ children }) => {
     rowsPerPage: 10,
     rowsPerPageOptions: [10, 25, 50],
     responsive: "standard",
-    customToolbar: () => {
+    /* customToolbar: () => {
       return (
         <span>
           <Tooltip title="Descargar Excel">
@@ -43,7 +43,7 @@ export const DataProvider = ({ children }) => {
           </Tooltip>
         </span>
       );
-    },
+    }, */
     textLabels: {
       pagination: {
         next: "Página siguiente",

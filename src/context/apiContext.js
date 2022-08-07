@@ -12,6 +12,14 @@ export const useApi = () => {
 export const ApiProvider = ({ children }) => {
   const url = "http://localhost:5000/api/";
   /* const url = "https://app-distribuida.herokuapp.com/api/"; */
+
+  const urlLogin = url + "login/";
+
+  const createLoginRequest = (user) => axios.post(urlLogin, user);
+
+  const createLoginWithGoogleRequest = (user) =>
+    axios.post(urlLogin + "google/", user);
+
   const urlDish = url + "products/";
 
   const getDishesRequest = () => axios.get(urlDish);
@@ -83,6 +91,8 @@ export const ApiProvider = ({ children }) => {
   };
 
   const value = {
+    createLoginRequest,
+    createLoginWithGoogleRequest,
     getDishesRequest: getDishesRequest,
     getDishRequest: getDishRequest,
     deleteDishRequest: deleteDishRequest,

@@ -1,31 +1,40 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Products } from "./pages/Products";
-import { DishProvider } from "./context/dishContext";
+import { Login } from "./pages/Login";
 import { Sidebar } from "./components/Sidebar";
 import { Dashboard } from "./pages/Dashboard";
 import { Users } from "./pages/Users";
 import { Analytics } from "./pages/Analytics";
 import { Categories } from "./pages/Categories";
-import { DataProvider } from "./context/dataContext";
-import { ApiProvider } from "./context/apiContext";
+import { useAuth } from "./context/authContext";
+import { Loading } from "./components/Loading";
+import { ProtectedRoute, ProtectedRouteAdmin } from "./utils/ProtectedRoute";
 
 function App() {
+  const { pathname } = useLocation();
+  const [loadingUser] = useAuth().loadingUser;
   return (
     <>
-      <ApiProvider>
-        <DataProvider>
-          <DishProvider>
-            <Sidebar />
-            <Routes>
-              <Route path="/" element={<Products />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/categories" element={<Categories />} />
-            </Routes>
-          </DishProvider>
-        </DataProvider>
-      </ApiProvider>
+      {loadingUser ? (
+        <Loading />
+      ) : (
+        <>
+          {pathname.includes("admin") ? <Sidebar /> : null}
+          <Routes>
+            <Route element={<ProtectedRouteAdmin />}>
+              <Route path="/" element={<Login />} />
+            </Route>
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/admin/products" element={<Products />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/users" element={<Users />} />
+              <Route path="/admin/analytics" element={<Analytics />} />
+              <Route path="/admin/categories" element={<Categories />} />
+            </Route>
+          </Routes>
+        </>
+      )}
     </>
   );
 }

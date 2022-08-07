@@ -1,0 +1,25 @@
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+.loadingContainer img {
+  width: 150px;
+  animation: spinner 2s linear infinite;
+}
+
+.loadingContainer h3 {
+  color: #f24726;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

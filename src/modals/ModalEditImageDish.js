@@ -9,7 +9,6 @@ import { useData } from "../context/dataContext";
 import Swal from "sweetalert2";
 
 export const ModalEditImageDish = ({ show, setShow, platoSeleccionado }) => {
-  console.log(platoSeleccionado);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useData().data;
   const updateImageRequest = useApi().updateImageRequest;

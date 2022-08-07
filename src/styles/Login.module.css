@@ -1,0 +1,258 @@
+.loginContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/bg-login.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.loginSubContainer {
+  position: relative;
+  background: #fff;
+  /*  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2px); */
+  /***************/
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  /*******************/
+  /* background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  ); */
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 10px;
+  width: 100%;
+}
+
+.imgLogo {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: -28px;
+}
+
+.figure {
+  max-width: 300px;
+  padding: 0 0.75rem;
+}
+
+.figure img {
+  width: 100%;
+}
+.loginTittle {
+  padding: 0 0.75rem;
+  text-align: center;
+  margin-top: 20px;
+  color: #fff;
+}
+
+.containerForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 20px 0;
+}
+.formulario {
+  width: 100%;
+}
+
+.formulario .btnSubmitForm,
+.formulario .btnForm {
+  display: block;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
+  transition: 0.3s ease all;
+}
+
+.btnSubmitForm,
+.disabledButton {
+  width: 100%;
+  padding: 10px;
+  background: #ec6247;
+  color: #fff;
+  font-weight: 500;
+}
+.disabledButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formulario .btnSubmitForm:hover {
+  background: #f76f54;
+}
+
+.formulario .form__input,
+.formulario textarea {
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  /* font-size: 18px; */
+  padding: 1.25rem;
+  color: #1f1f1f;
+  transition: 0.3s;
+}
+.cont_input {
+  position: relative;
+  margin-bottom: 30px;
+  height: 2rem;
+}
+
+.form__input:hover {
+  border-color: #ec6247;
+}
+.form__input:focus {
+  border-color: #ec6247;
+}
+
+.form__input.warning,
+.form__input.form__area.warning,
+.form__input.my_select.warning {
+  border-color: #f74562;
+}
+
+.form__label {
+  position: absolute;
+  left: 0.89rem;
+  top: 0.67rem;
+  user-select: none;
+  padding: 0 0.5rem;
+  pointer-events: none;
+  color: gray;
+  transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+
+  border-radius: 5px;
+}
+
+.form__input:focus ~ .form__label,
+.form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+  top: -0.6rem;
+  font-size: 14px;
+  left: 5px;
+  background: #fff;
+  padding: 0 0.5rem;
+}
+
+.formulario .error {
+  margin-left: 10px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  color: #e92b2d;
+  font-weight: 500;
+  font-size: 12px;
+}
+.eye {
+  position: absolute;
+  top: 70%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 21px;
+  color: #ec6247;
+  cursor: pointer; /*  user-select: none; visibility: hidden; */
+}
+.form__input.inputPass {
+  padding-right: 2.3rem;
+}
+.errorMessage,
+.succefullMessage {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.successfulMessage {
+  color: #1db91d;
+}
+.iconLoading {
+  margin-right: 5px;
+  animation: spinner 1s linear infinite;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.formulario .buttonForgotPass {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  margin-left: 5px;
+  margin-top: 10px;
+  background: none;
+  color: #f77055;
+}
+.orP {
+  text-align: center;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+}
+.orP:before {
+  content: "";
+  display: block;
+  width: 45%;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+}
+.orP:after {
+  content: "";
+  display: block;
+  width: 45%;
+  height: 2px;
+  background: #fff;
+  position: absolute;
+  right: 0;
+  top: 50%;
+}
+.orSpan {
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.iconGoogle {
+  margin-right: 10px;
+}
+.formulario .buttonGoogle {
+  background: #fff;
+  padding: 10px;
+  color: #ec6247;
+  border: 2px solid #ec6247;
+  background: #fff1f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+
+@media (max-width: 375px) {
+  .imgLogo {
+    top: -23px;
+  }
+  .figure {
+    max-width: 250px;
+  }
+}
