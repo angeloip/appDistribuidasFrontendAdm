@@ -18,7 +18,7 @@ export const Products = () => {
   const [isLoading] = useData().isLoading;
   const [toggle] = useDish().toggle;
   const [data] = useData().data;
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const classToggle = toggle
     ? `${styles.productsContainer} ${styles.extended}`
@@ -36,7 +36,7 @@ export const Products = () => {
       };
     });
 
-    const wscols = raea(dataExport);
+    const wscols = calcColumn(dataExport);
 
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.json_to_sheet(dataExport);
@@ -46,7 +46,7 @@ export const Products = () => {
     XLSX.writeFile(wb, "DataDePlatos.xlsx");
   };
 
-  const raea = (rows) => {
+  const calcColumn = (rows) => {
     return Object.keys(rows[0]).map((data, i) => ({
       wch: rows.reduce(
         (previousValue, currentValue) =>

@@ -4,7 +4,6 @@ import { ImSpinner9 } from "react-icons/im";
 import { MdAddTask } from "react-icons/md";
 import styles from "../styles/Categories.module.css";
 import { ModalAddCategory } from "../modals/ModalAddCategory";
-import { CategoriesTable } from "../components/SkeletonMolds";
 import { useData } from "../context/dataContext";
 import { Header } from "../components/Header";
 import { DataTableCategory } from "../components/DataTableCategory";

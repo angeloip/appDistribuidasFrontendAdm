@@ -13,6 +13,8 @@ import { useAuth } from "../context/authContext";
 
 export const Sidebar = () => {
   const [modeSwitch, setModeSwitch] = useState(false);
+  const setToken = useAuth().token[1];
+  const setUserRole = useAuth().userRole[1];
 
   const Toast = Swal.mixin({
     toast: true,
@@ -33,13 +35,15 @@ export const Sidebar = () => {
     await logOut()
       .then((res) => {
         setBeUser(null);
+        setToken(null);
+        setUserRole(null);
         Toast.fire({
           icon: "success",
           title: `Ha cerrado sesión`
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
       });
   };
 

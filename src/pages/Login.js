@@ -17,6 +17,7 @@ export const Login = () => {
   const [hidden, setHidden] = useState(true);
 
   const [beUser, setBeUser] = useAuth().beUser;
+  const setUserRole = useAuth().userRole[1];
   const logIn = useAuth().logIn;
   const saveToken = useAuth().saveToken;
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +50,7 @@ export const Login = () => {
             if (res.data.role === "admin") {
               setBeUser(res.data);
               saveToken(res.data.token);
+              setUserRole(res.data.role);
               setHidden(true);
               Toast.fire({
                 icon: "success",

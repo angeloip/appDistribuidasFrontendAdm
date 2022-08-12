@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import axios from "axios";
+import { useAuth } from "./authContext";
 
 export const apiContext = createContext();
 
@@ -12,6 +13,14 @@ export const useApi = () => {
 export const ApiProvider = ({ children }) => {
   const url = "http://localhost:5000/api/";
   /* const url = "https://app-distribuida.herokuapp.com/api/"; */
+
+  const [token] = useAuth().token;
+
+  const config = {
+    headers: {
+      Authorization: token
+    }
+  };
 
   const urlLogin = url + "login/";
 
@@ -40,7 +49,8 @@ export const ApiProvider = ({ children }) => {
 
     return axios.post(urlDish, form, {
       headers: {
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        Authorization: token
       }
     });
   };
