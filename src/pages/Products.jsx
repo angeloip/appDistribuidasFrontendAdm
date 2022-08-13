@@ -13,6 +13,7 @@ import * as XLSX from "xlsx";
 import Spinner from "../components/Spinner";
 
 export const Products = () => {
+  document.title = "Productos";
   const [show, setShow] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [isLoading] = useData().isLoading;

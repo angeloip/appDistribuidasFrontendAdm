@@ -3,6 +3,7 @@ import styles from "../styles/Dashboard.module.css";
 import { Header } from "../components/Header";
 
 export const Dashboard = () => {
+  document.title = "Dashboard";
   const [toggle] = useDish().toggle;
 
   const classToggle = toggle

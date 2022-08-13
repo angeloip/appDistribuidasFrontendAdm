@@ -1,17 +1,18 @@
 import React from "react";
 import { useDish } from "../context/dishContext";
-import styles from "../styles/Analytics.module.css";
+import styles from "../styles/Users.module.css";
 import { Header } from "../components/Header";
 
-export const Analytics = () => {
+export const Users = () => {
+  document.title = "Usuarios";
   const [toggle] = useDish().toggle;
 
   const classToggle = toggle
-    ? `${styles.analyticsContainer} ${styles.extended}`
-    : styles.analyticsContainer;
+    ? `${styles.usersContainer} ${styles.extended}`
+    : styles.usersContainer;
   return (
     <div className={classToggle}>
-      <Header>Analíticas</Header>
+      <Header>Usuarios</Header>
     </div>
   );
 };

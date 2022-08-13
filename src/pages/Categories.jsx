@@ -9,6 +9,7 @@ import { Header } from "../components/Header";
 import { DataTableCategory } from "../components/DataTableCategory";
 
 export const Categories = () => {
+  document.title = "Categorías";
   const [show, setShow] = useState(false);
   const [isLoadingCategory] = useData().isLoadingCategory;
   const [categories] = useData().categories;
