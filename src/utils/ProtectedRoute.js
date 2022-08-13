@@ -24,13 +24,3 @@ export const ProtectedRouteAdmin = () => {
     <Outlet />
   );
 };
-
-/* export const ProtectedRouteObbCode = ({ children }) => {
-  const query = useQuery();
-  const oobCode = query.get("oobCode");
-
-  if (!oobCode) return <Navigate to="/" />;
-
-  return children;
-};
- */
